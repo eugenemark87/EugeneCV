@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35806.99 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EugeneCV", "EugeneCV.csproj", "{AD0236CF-22BA-4051-8F5D-A564A463E00D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD0236CF-22BA-4051-8F5D-A564A463E00D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD0236CF-22BA-4051-8F5D-A564A463E00D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD0236CF-22BA-4051-8F5D-A564A463E00D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD0236CF-22BA-4051-8F5D-A564A463E00D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F3733BF1-4001-4BC7-BA69-BA9CE9ABA2F4}
+	EndGlobalSection
+EndGlobal
