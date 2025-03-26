@@ -16,3 +16,28 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+/*
+    login page
+*/
+
+.login-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 92vh;
+}
+
+
+.login-box {
+    width: 390px;
+    background: linear-gradient(45deg, black, transparent);
+    color:white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/***/

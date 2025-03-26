@@ -1,0 +1,36 @@
+﻿@model UserViewModel;
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewData["Title"] = "Login";
+}
+
+<div class="login-container">
+    <div class="login-box p-5">
+        <form method="post" asp-action="Login">
+            <div class="d-flex flex-column gap-2">
+
+           
+            <div>
+                <label  asp-for="Username"></label>
+                <input class="form-control" asp-for="Username" type="text" name="username" required />
+            </div>
+            <div>
+                <label asp-for="Password">Password</label>
+                <input class="form-control" asp-for="Password" type="password" name="password" required />
+            </div>
+            <button class="btn btn-primary form-control mt-3" type="submit">Login</button>
+            </div>
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="validation-summary-errors mt-3" style="color: red;">
+                    @Html.ValidationSummary(true)
+                </div>
+            }
+        </form>
+    </div>
+
+
+</div>
+
+
+
