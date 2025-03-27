@@ -1,4 +1,6 @@
-﻿namespace EugeneCV.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EugeneCV.Models
 {
     public class Skill
     {
