@@ -1,8 +1,235 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model CVViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="content">
+    <div class="row d-flex">
+        <div class="col-md-8">
+            <div class="card card-light card-outline p-3">
+
+                <div class="text-center mt-3">
+                    <h5 class="mt-1 mb-3">@Model.profile.Name</h5>
+                    <div class="px-5 mt-1 mb-4 fonts text-center">
+                        <div>@Model.profile.Summary</div>
+                    </div>
+                    <hr>
+                    <div class="row details">
+                        <div class="col-6 text-left border-right">
+                            <ul class="list-group list-group-unbordered m-3">
+                                <li class="list-group-item border-0 p-0">
+                                    <p>
+                                        <i class="fas fa-house-user text-primary mr-1"></i> <b>Address</b> <span class="float-right">@Model.profile.Address</span>
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-envelope text-primary mr-1"></i> <b>Email</b>
+                                        <span class="float-right">@Model.profile.Email</span>
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-language text-primary mr-1"></i> <b>Spoken Language</b> <span class="float-right">@Model.profile.SpokenLanguage</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-6 text-left">
+                            <ul class="list-group list-group-unbordered m-3">
+                                <li class="list-group-item border-0 p-0">
+                                    <p>
+                                        <i class="fas fa-phone text-primary mr-1"></i><b>Mobile</b> <span class="float-right">@Model.profile.MobileNumber</span>
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-user text-primary mr-1"></i> <b>Nationality</b> <span class="float-right">@Model.profile.Nationality</span>
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-clock text-primary mr-1"></i> <b>Availability</b> <span class="float-right">@Model.profile.Availability</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex">
+        <div class="col-md-8">
+            <div class="card card-light card-outline p-3">
+
+                <h5 class="mb-3"><b>WORK EXPERIENCES</b></h5>
+
+                <div class="timeline">
+
+                    <!-- Experience Section -->
+                    @foreach (var exp in Model.Experiences)
+                    {
+
+                        <div class="timeline">
+                            <div class="time-label"><span class="bg-gradient-light p-1 text-dark"><i class="fas fa-clock text-primary mr-1"></i> @exp.Duration</span></div>
+                            <div>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-header">
+
+                                        <div class="ml-2 mb-1 d-flex gap-2">
+                                            <div style="flex-grow:1">
+                                                <b>@exp.Company</b> - <i>@exp.JobTitle</i>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <ul>
+                                            @foreach (var desc in exp.Descriptions)
+                                            {
+                                                <li class="m-1"> @Html.Raw(@desc.Description)</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="timeline-footer">
+                                        <div>
+                                            @if (exp.Technology != "-")
+                                                foreach (var tech in exp.Technology.Split(','))
+                                                {
+                                                    <span class="badge badge-light mr-1 text-success"> @tech.Trim()</span>
+                                                }
+                                        </div>
+                                        @if (exp.Screenshots != null)
+                                        {
+                                            <hr />
+                                        }
+                                        <div class="gallery @exp.ExperienceId">
+
+                                            @if (exp.Screenshots != null)
+                                                foreach (var screenshot in exp.Screenshots)
+                                                {
+                                                    <a href="@screenshot.ImageLink" data-fancybox="gallery @exp.ExperienceId" data-caption="@screenshot.Caption">
+                                                        <img class="m-1" src="@screenshot.ImageLink" alt="Image 1" width="100" height="100">
+                                                    </a>
+                                                }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                    <!-- end experience-->
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row d-flex">
+        <div class="col-md-8">
+            <div class="card card-light card-outline p-3">
+                <h5><i class="nav-icon fas fa-school mr-2 text-primary"></i>EDUCATION</h5>
+                <div class="p-1">
+                    <div class="row">
+                        @foreach (var education in Model.Educations)
+                        {
+                            <div class="col-6 gap-0 p-1">
+
+                                <div class="card">
+                                    <div class="card-body text-left">
+                                        <span class="card-title"><b>@education.School</b></span>
+                                        <p class="card-text"><i>@education.Course</i></p>
+
+                                    </div>
+                                    <div class="card-footer text-left"><small class="text-muted">@education.Duration</small></div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row d-flex">
+        <div class="col-md-8">
+            <div class="card card-light card-outline p-3">
+                <h5><i class="nav-icon fas fa-tools mr-2 text-primary"></i>SKILLS</h5>
+                <p class="m-3">@Model.profile.SkillsSummary</p>
+
+                <div class="">
+                    <div id="card-container" class="row mb-3">
+                    @foreach (var categoryGroup in Model.SkillCategories.GroupBy(x => x.CategoryName))
+                    {
+                     
+                            <div class="col-md-12 mb-3">
+                        <div class="card box-shadow">
+                            <div class="card-header">
+                                <b class="my-0">@categoryGroup.Key</b>
+                            </div>
+                            <div class="card-body text-left">
+                               
+                                <ul class=" mt-3 mb-4">
+                                            @foreach (var category in categoryGroup)
+                                            {
+                                                @foreach (var skill in Model.Skills.Where(x => x.SkillCategoryId == category.SkillCategoryId))
+                                                {
+                                                    <li>@category.SubCategoryName - @skill.SkillName</li>
+                                                }
+                                            }
+                                </ul>
+                           </div>
+                        </div>
+
+
+                        </div>
+                        
+                    }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row d-flex">
+        <div class="col-md-8">
+            <div class="card card-light card-outline p-3">
+                <h5><i class="nav-icon fas fa-award mr-2 text-primary"></i>AWARDS</h5>
+                <ul>
+                @foreach (var award in Model.Awards)
+                {
+                        <li><b>@award.School</b> - @award.AwardDescription</li>
+                }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row d-flex">
+        <div class="col-md-4">
+            <div class="card card-light card-outline p-3">
+                <h5><i class="nav-icon fas fa-running mr-2 text-primary"></i>PROFESSIONAL</h5>
+                <ul>
+                @foreach (var professional in Model.Professionals)
+                {
+                        <li><b>@professional.CertificateName</b> - @professional.Description</li>
+                }
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-light card-outline p-3">
+                <h5><i class="nav-icon fas fa-running mr-2 text-primary"></i>HOBBIES</h5>
+                <ul>
+                @foreach (var hobby in Model.Hobbies)
+                {
+                    <li>@hobby.HobbyName</li>
+                }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</section>
