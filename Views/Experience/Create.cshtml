@@ -1,0 +1,76 @@
+﻿@model EugeneCV.Models.Experience
+
+@{
+    ViewData["Title"] = "Create Experience";
+}
+
+<h1>Create Experience</h1>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="JobTitle"></label>
+        <input asp-for="JobTitle" class="form-control" />
+        <span asp-validation-for="JobTitle" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Company"></label>
+        <input asp-for="Company" class="form-control" />
+        <span asp-validation-for="Company" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Duration"></label>
+        <input asp-for="Duration" class="form-control" />
+        <span asp-validation-for="Duration" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Technology"></label>
+        <input asp-for="Technology" class="form-control" />
+        <span asp-validation-for="Technology" class="text-danger"></span>
+    </div>
+
+    <!-- Experience Descriptions Section -->
+    <div class="form-group">
+        <label>Experience Descriptions</label>
+        <div id="descriptions-container">
+            @if (Model?.Descriptions != null)
+            {
+                for (var i = 0; i < Model.Descriptions.Count; i++)
+                {
+                    <div class="input-group mb-2">
+                        <input  type="text" name="Descriptions[@i].Description" class="form-control" value="@Model.Descriptions[@i].Description" />
+                        <button type="button" class="btn btn-danger remove-description">X</button>
+                    </div>
+                }
+            }
+        </div>
+        <button type="button" class="btn btn-secondary mt-2" id="add-description">Add Description</button>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<a asp-action="Index">Back to List</a>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var descriptionIndex = @((Model?.Descriptions?.Count ?? 0));
+
+            $("#add-description").click(function () {
+                var newInput = `<div class="input-group mb-2">
+                    <input type="text" name="Descriptions[${descriptionIndex}].Description" class="form-control" />
+                    <button type="button" class="btn btn-danger remove-description">X</button>
+                </div>`;
+                $("#descriptions-container").append(newInput);
+                descriptionIndex++;
+            });
+
+            $(document).on("click", ".remove-description", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+}

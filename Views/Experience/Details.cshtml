@@ -1,0 +1,76 @@
+﻿@model EugeneCV.Models.Experience
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Experience</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.JobTitle)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.JobTitle)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Company)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descriptions)
+        </dt>
+        <dd class="col-sm-10">
+            @if(Model.Descriptions != null)
+            {<ul>
+                @foreach (var desc in Model.Descriptions)
+                {
+                    <li>@Html.Raw(desc.Description)</li>
+                }
+                </ul>
+            }
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Technology)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Technology)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Screenshots)
+        </dt>
+        <dd class="col-sm-10">
+            <div class="gallery">
+
+                @if (Model.Screenshots != null)
+                    foreach (var screenshot in Model.Screenshots)
+                    {
+                        <a href="~/@screenshot.ImageLink" data-fancybox="gallery" data-caption="@screenshot.Caption">
+                            <img class="m-1" src="~/@screenshot.ImageLink" alt="Image 1" width="100" height="100">
+                        </a>
+                    }
+            </div>
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Priority)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Priority)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ExperienceId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,118 @@
+﻿@model EugeneCV.Models.Experience
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Experience</h4>
+<hr />
+
+<form asp-action="Edit" class="row">
+    <div class="col-6">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ExperienceId" />
+        <div class="form-group">
+            <label asp-for="JobTitle" class="control-label"></label>
+            <input asp-for="JobTitle" class="form-control" />
+            <span asp-validation-for="JobTitle" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Company" class="control-label"></label>
+            <input asp-for="Company" class="form-control" />
+            <span asp-validation-for="Company" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Duration" class="control-label"></label>
+            <input asp-for="Duration" class="form-control" />
+            <span asp-validation-for="Duration" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Technology" class="control-label"></label>
+            <input asp-for="Technology" class="form-control" />
+            <span asp-validation-for="Technology" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Priority" class="control-label"></label>
+            <input asp-for="Priority" class="form-control" />
+            <span asp-validation-for="Priority" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+    <div class="col-6">
+        <div id="description-container">
+
+            @if (Model.Descriptions != null)
+            {
+                for (int i = 0; i < Model.Descriptions.Count; i++)
+                {
+                    <div class="form-group description-item">
+                        <input type="hidden" asp-for="Descriptions[i].ExperienceDescriptionId" />
+                    <textarea asp-for="Descriptions[i].Description" class="form-control" placeholder="Enter description"></textarea>
+                    <button type="button" class="btn btn-danger remove-description">Remove</button>
+                </div>
+            }
+            }
+        </div>
+
+        <button type="button" id="add-description" class="btn btn-secondary mt-2">Add Description</button>
+
+        <input type="hidden" id="DescriptionsToDelete" name="DescriptionsToDelete" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let deleteList = [];
+            let descriptionIndex = @Model.Descriptions.Count; // Start index for new descriptions
+
+            // Handle remove existing descriptions
+            document.querySelectorAll(".remove-description").forEach(button => {
+                button.addEventListener("click", function () {
+                    let descriptionDiv = this.closest(".description-item");
+                    let inputId = descriptionDiv.querySelector("input[type='hidden']").value;
+
+                    if (inputId) {
+                        deleteList.push(inputId);
+                        document.getElementById("DescriptionsToDelete").value = deleteList.join(",");
+                    }
+
+                    descriptionDiv.remove();
+                });
+            });
+
+            // Handle adding new descriptions
+            document.getElementById("add-description").addEventListener("click", function () {
+                let container = document.getElementById("description-container");
+
+                let newDiv = document.createElement("div");
+                newDiv.classList.add("form-group", "description-item");
+
+                newDiv.innerHTML = `
+                    <input type="hidden" name="Descriptions[${descriptionIndex}].Id" value="0" />
+                    <textarea name="Descriptions[${descriptionIndex}].Text" class="form-control" placeholder="Enter description"></textarea>
+                    <button type="button" class="btn btn-danger remove-description">Remove</button>
+                `;
+
+                container.appendChild(newDiv);
+                descriptionIndex++;
+
+                // Attach remove event to new button
+                newDiv.querySelector(".remove-description").addEventListener("click", function () {
+                    newDiv.remove();
+                });
+            });
+        });
+    </script>
+}
