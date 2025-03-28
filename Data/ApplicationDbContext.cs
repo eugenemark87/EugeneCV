@@ -20,6 +20,7 @@ namespace EugeneCV.Data
         public DbSet<Award> Awards { get; set; }
         public DbSet<Professional> Professionals { get; set; }
         public DbSet<Hobby> Hobbies { get; set; }
+        public DbSet<Screenshot> Screenshots { get; set; }
 
     }
 }
