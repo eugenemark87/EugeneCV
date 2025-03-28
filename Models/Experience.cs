@@ -8,6 +8,7 @@
         public string Duration { get; set; }
         public string Technology { get; set; }
         public List<ExperienceDescription>? Descriptions { get; set; }
+        public List<Screenshot>? Screenshots { get; set; }
         public int Priority { get; set; }
     }
 }
